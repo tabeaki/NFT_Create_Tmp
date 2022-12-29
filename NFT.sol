@@ -2,20 +2,19 @@
 pragma solidity >=0.7.0 <0.9.0;
 //import "hardhat/console.sol"; // Hardhat console log
 
-import './ERC721A.sol';
+import "./ERC721A.sol";
 import "./Ownable.sol";
 
 /**
  * @title SmartGenerative
  * @notice Mint Generative NFT (add RRC721A and WL's MerkleProof)
  */
-contract TORIIPROJECT is ERC721A, Ownable {
+contract TokenMaksLabs is ERC721A, Ownable {
 
     string baseURI;
     string public baseExtension = ".json";
-    uint256 public cost = 0.25 ether;
+    uint256 public cost = 0.1 ether;
     uint256 public maxSupply = 4;
-    uint256 public maxMintAmount = 5;
     bool public paused = true;
 
     constructor(
@@ -79,10 +78,6 @@ contract TORIIPROJECT is ERC721A, Ownable {
 
     function getMaxSupply() public view onlyOwner returns(uint256){
         return maxSupply;
-    }
-
-    function setmaxMintAmount(uint256 _newmaxMintAmount) public onlyOwner {
-        maxMintAmount = _newmaxMintAmount;
     }
   
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
