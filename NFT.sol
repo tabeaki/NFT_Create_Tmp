@@ -7,9 +7,9 @@ import "./Ownable.sol";
 
 /**
  * @title SmartGenerative
- * @notice Mint Generative NFT (add RRC721A and WL's MerkleProof)
+ * @notice Mint Generative NFT (add RRC721A)
  */
-contract TokenMaksLabs is ERC721A, Ownable {
+contract TokenMasksLabs is ERC721A, Ownable {
     
     // NFTの情報をコントラクトから見にいくURL
     string baseURI;
@@ -29,11 +29,6 @@ contract TokenMaksLabs is ERC721A, Ownable {
     ) ERC721A('ETH MASKS', 'EM') {// NFTのコレクション名：ETH MASKS 、トークン名：EM に設定
         // BaseURIを最初に設定しておく
         setBaseURI('');
-    }
-
-    // internal 現在設定されているURIを返却する
-    function _baseURI() internal view virtual override returns (string memory) {
-        return baseURI;
     }
 
     /**
@@ -87,33 +82,27 @@ contract TokenMaksLabs is ERC721A, Ownable {
             _safeMint(_airdropAddresses[i], _UserMintAmount[i] );
         }
     }
+
+    // internal 現在設定されているURIを返却する
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseURI;
+    }
+
     // abi.encodePackedは文字列を結合する関数「ERC721A.tokenURI(tokenId)とbaseExtensionを組み合わせて、トークンIDに紐づくURIを返却する
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory){
         return string(abi.encodePacked(ERC721A.tokenURI(tokenId), baseExtension));
-    }
-
-    function is_paused() public view returns(bool){
-        return paused;
     }
 
     //only owner  
     function setCost(uint256 _newCost) public onlyOwner {
         cost = _newCost;
     }   
-
-    function getMaxSupply() public view onlyOwner returns(uint256){
-        return maxSupply;
-    }
   
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
         baseURI = _newBaseURI;
     }
 
-    function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
-        baseExtension = _newBaseExtension;
-    }
-
-    function pause(bool _state) public onlyOwner {
+    function setPause(bool _state)public onlyOwner{
         paused = _state;
     }
 
