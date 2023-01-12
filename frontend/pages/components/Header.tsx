@@ -5,9 +5,7 @@ function Header() {
             <nav className="max-w-full lg:pt-1 bg-black">
                 <div className="grid grid-rows-12 grid-flow-col">
                     <div className='justify-front flex'>
-                    </div>
-                    <div className="lg:justify-center flex">
-                        <Image className="" src="/headerLogo.png" alt="chara1" width={160} height={20} objectFit="contain"/>
+                    <img className="mt-2" src="/logo.png" alt="LOGO" height="40" width="50" />
                     </div>
                     <div className="justify-end px-2 flex">
                         <div className="bg-[url('/opensea_icon.png')] invisible md:visible px-2 pt-8 mx-1 bg-center bg-cover"><a className="px-2 py-4" href=""></a></div>

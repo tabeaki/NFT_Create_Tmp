@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import Image from 'next/image';
 import Seo from './components/Seo';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 const Home: NextPage = () => {
 
@@ -58,7 +59,7 @@ const Home: NextPage = () => {
               symbol: 'ETH',
               decimals: 5,
             },
-            rpcUrls: ['https://mainnet.infura.io/v3/20cd5bade2c0407da65c6811cc2a1b37'],
+            rpcUrls: ['https://goerli.infura.io/v3/20cd5bade2c0407da65c6811cc2a1b37'],
           }],
         });
         console.log('try');
@@ -108,10 +109,9 @@ const Home: NextPage = () => {
         <Image className="min-w-full" src="/main_grap.png" alt="Main Image" width={500} height={500}/>
       </div>
       <div className="m-12 lg:m-32 px-12 py-6 lg:pt-8 lg:px-20 border-2 bg-black text-center border-[#FFFFFF] bg-center bg-contain bg-no-repeat">
-        <Image className="min-w-full" src="/CNPES.jpg" alt="Main Image" width={168} height={118}/>
-
-        <h1 className="text-2xl lg:text-3xl pt-2 lg:pt-4 lg:pb-6 text-white font-['Impact']"> {mintNum} / 5000</h1>
-        <a className="text-2xl lg:text-3xl pt-2 lg:pt-8 lg:pb-8 text-white font-['Impact']">5</a><a className="text-2xl lg:text-3xl pt-2 lg:pt-8 lg:pb-8 text-[#99CDDB] font-['Impact'] ">MAX</a><br/>
+        <h1 className="text-2xl lg:text-4xl pt-2 lg:pt-4 lg:pb-6 text-white font-['Impact']">ETH MASKS NFT</h1>
+        <h1 className="text-2xl lg:text-4xl pt-2 lg:pt-4 lg:pb-6 text-white font-['Impact']"> {mintNum} / 5000</h1>
+        <a className="text-2xl lg:text-4xl pt-2 lg:pt-8 lg:pb-8 text-white font-['Impact']">3</a><a className="text-2xl lg:text-3xl pt-2 lg:pt-8 lg:pb-8 text-[#99CDDB] font-['Impact'] ">MAX</a><br/>
         
         <div className="pt-2 lg:pt-6 pb-7">
           <button type="button" className="text-2xl lg:text-3xl inline-flex flex-shrink-0 justify-center items-center gap-2 h-[1.375rem] w-[1.375rem] lg:h-[2.375rem] lg:w-[2.375rem]
@@ -148,6 +148,7 @@ const Home: NextPage = () => {
       />
       <Header />
       <MintButton/>
+      <Footer />
     </div>
     
   );
