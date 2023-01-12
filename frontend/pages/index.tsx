@@ -140,8 +140,8 @@ const Home: NextPage = () => {
   return (
     <div>
       <Seo
-          pageTitle={'CNPES'}
-          pageDescription={'CNPES'}
+          pageTitle={'ETH MASKS'}
+          pageDescription={'ETH MASKS'}
           pageImg={''}
           pageImgWidth={1920}
           pageImgHeight={1005}
