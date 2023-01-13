@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   const [disabledFlag, setDisabledFlag] = useState(false);
   const abi = [
     'function totalSupply() public view virtual override returns (uint256)',
-    "function mint(uint _mintAmount) public payable {",
+    "function mint(uint _mintAmount) public payable",
   ]
   const contractAddress = "0x9ee6c48d1984fA92dE6c0339741f384E62Ea114a"
   useEffect(() => {
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
           method: 'wallet_addEthereumChain',
           params: [{
             chainId: '0x5',
-            chainName: 'Ethereum Main Network',
+            chainName: 'goerli',
             nativeCurrency: {
               name: 'ETH',
               symbol: 'ETH',
