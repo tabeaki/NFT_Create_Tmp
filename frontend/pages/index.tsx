@@ -95,7 +95,7 @@ const Home: NextPage = () => {
       const quantity = String(mintQuantity);
       const contract = new ethers.Contract(contractAddress, abi, signer);
       try{
-        await contract.mint(ethers.utils.parseEther(quantity),{value: ethers.utils.parseEther(tokenPrice),gasLimit: 91000});
+        await contract.mint(quantity,{value: ethers.utils.parseEther(tokenPrice),gasLimit: 91000});
         alert('Starting to execute a transaction');
       }catch(err: any) {
       // JSONへ変換
