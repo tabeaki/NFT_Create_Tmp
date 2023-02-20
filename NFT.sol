@@ -5,6 +5,7 @@ pragma solidity >=0.7.0 <0.9.0;
 import "./ERC721A.sol";
 import "./Ownable.sol";
 import "./DefaultOperatorFilterer.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 contract TokenMasksLabs is ERC721A, Ownable, DefaultOperatorFilterer{
 
@@ -19,11 +20,46 @@ contract TokenMasksLabs is ERC721A, Ownable, DefaultOperatorFilterer{
     uint public maxMintAmount = 10;
     // saleの開始を制御する変数
     bool public paused = true;
+    // マークルツリーのルート
+    bytes32 public merkleRoot;
 
     constructor(
     ) ERC721A ('ETH MASKS','EM'){// コレクション名：　ETH MASKS、　トークンの名前：EM
         setBaseURI('https://bafybeidyeas3wcaxt4xdv3u4mh7h4db4p3wevajfrrpafanicmokccjzku.ipfs.nftstorage.link/');
     }
+
+    // マークルツリーを利用したpreMint関数
+    /**
+    * @notice Mint from mint site(for WhiteList)
+    * @param _mintAmount Amount of mint
+    * @param _merkleProof for MerkleProof data
+    */
+    function preMint(uint256 _mintAmount,bytes32[] memory _merkleProof, uint256 alloc)public payable{
+        if(paused) revert("the contract is paused");
+        
+        uint supply = totalSupply();
+        
+        if(!(_mintAmount > 0)) revert("Please specify 1 or more");
+        
+        if(_mintAmount > maxMintAmount) revert("max mint amount per session exceeded");
+        
+        if(supply + _mintAmount > maxSupply) revert("max NFT limit exceeded");
+
+        // Owner also can mint.
+        if (msg.sender != owner()) {
+            require(msg.value >= cost * _mintAmount, "insufficient funds");
+
+            // WhiteList check
+            require(
+                MerkleProof.verify(_merkleProof, merkleRoot, keccak256(abi.encodePacked(msg.sender,uint16(alloc)))),
+                "You don't have a whitelist!"
+            );
+
+            require(balanceOf(msg.sender) + _mintAmount <= maxMintAmount,"Limit mint amount!");
+        }
+
+        _safeMint(msg.sender, _mintAmount);
+    } 
 
     function mint(uint _mintAmount) public payable {
         if(paused) revert("the contract is paused");
@@ -89,6 +125,14 @@ contract TokenMasksLabs is ERC721A, Ownable, DefaultOperatorFilterer{
 
     function _baseURI() internal view virtual override returns (string memory){
         return baseURI;
+    }
+
+    /**
+    * @notice Set WhiteList's merkleRoot
+    * @param _merkleRoot Set value
+    */
+    function setPresaleRoots(bytes32 _merkleRoot) external onlyOwner {
+        merkleRoot = _merkleRoot;
     }
 
     ///////////////////////////////////////////////////////////////////////////
