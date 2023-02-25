@@ -160,7 +160,7 @@ const Home: NextPage = () => {
       // nameMap.indexOf(address);で値がヒットしなかった場合にaddressId が-1となる
       if( addressId != -1){
         // 対象アドレス抽出
-        claimingAddress = ethers.utils.solidityKeccak256(['address', 'uint16'], [allowlistAddresses[0][0] , allowlistAddresses[0][1]]);
+        claimingAddress = ethers.utils.solidityKeccak256(['address', 'uint256'], [allowlistAddresses[addressId][0] , allowlistAddresses[addressId][1]]);
         // ハッシュを作成
         hexProof = merkleTree.getHexProof(claimingAddress);    
       }
